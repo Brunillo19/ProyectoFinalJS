@@ -1,7 +1,6 @@
 let genero = document.getElementById("generar");
 let prueba= document.getElementById("prueba");
 let contenido = document.getElementById("contenido");
-let eliminar = document.getElementById("eliminar");
 let limpiar = document.getElementById("limpiar");
 let turnoNuevo = document.getElementById("turnoNuevo");
 let tablaturno = [] && JSON.parse(localStorage.getItem("turnos"));
@@ -37,7 +36,7 @@ const MuestraTurno = async () => {
     <p>Comentario Adicional: ${item.comentario}</p>
     <p>Tratamiento: ${item.tratamiento}</p>
     <p>Costo final: ${item.costo}</p>
-    <button class="eliminar btn btn-light text-bg-secondary" onclick="eliminoTurno(this)"> Eliminar Turno </button>
+    <button class="eliminar btn btn-light text-bg-secondary" onclick="eliminoTurno()"> Eliminar Turno </button>
     </div>
     `;
     turnosGenerados.append(divprueba); 
@@ -91,14 +90,16 @@ function generar() {
     showConfirmButton: false,
     timer: 3000,
   })};
-  /* console.log(tablaturno); */
+
 }
 
 
-
-function eliminoTurno() {
-  let div = document.getElementById("turnosGenerados");
+/* Función para eliminar turno en específico */
+function eliminoTurno(id) {
   let turnos = JSON.parse(localStorage.getItem("turnos"));
+  let li = id;
+  console.log(li);
+  
   Swal.fire({
     title: "Está seguro de eliminar el turno?",
     icon: "warning",
@@ -108,22 +109,21 @@ function eliminoTurno() {
   }).then((result) => {
     if (result.isConfirmed) {
       //logica para eleminar del carrito
-      console.log(turnos.nomPa);
       
-      
-      /* const borrar = turnos.find( ,id) => id=idx; */
-      /* turnos.splice(index,1); */
-      localStorage.setItem("turnos", JSON.stringify(turnos));
-
-      div.innerHTML="";
+    
+  
       Swal.fire({
         title: "Borrado!",
         icon: "success",
         text: "El turno ha sido eliminado",
       });
+      turnos.splice(li,1); 
+      localStorage.setItem("turnos", JSON.stringify(turnos)); 
+      location.reload();
     }
   });
 } 
+/* Función paras borrar todos lo turnos */
 function eliminoLista() {
   let div = document.getElementById("turnosGenerados");
   let turnos = JSON.parse(localStorage.getItem("turnos"));
@@ -157,8 +157,8 @@ genero && genero.addEventListener("click", (e) => {
   generar();
     setTimeout(() => {
       location.href="./index.html";
-    }, 8000);
-  // /* Hago función que recolecte los datos y en otra función genero la card */
+    }, 4000);
+
 
 
 });
@@ -183,7 +183,7 @@ base.forEach((turno,idx) => {
   <p>Comentario Adicional: ${turno.comentario}</p>
   <p>Tratamiento: ${turno.tratamiento}</p>
   <p>Costo final: ${turno.costo}</p>
-  <button class="eliminar btn btn-light text-bg-secondary" id="${idx}" onclick="eliminoTurno()"> Eliminar Turno </button>
+  <button class="eliminar btn btn-light text-bg-secondary" id="${idx}" onclick="eliminoTurno(${idx})"> Eliminar Turno </button>
   </div>
   `;
   turnosGenerados.append(div);       
