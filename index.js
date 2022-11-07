@@ -70,26 +70,27 @@ function generar() {
   let costo = parseFloat(document.getElementById("costo").value);
   let dia = document.getElementById("dia").value;
   costo=obra ? ((costo = (costo * 0.6).toFixed(2))) : (costo = costo);
-  (nomPa==""||hora==""||tratamiento==""||costo==""||dia=="")?alert("Ingrese todos los datos solicitados"):
-  (localStorage.getItem("turnos", JSON.stringify(tablaturno)),
+  if(nomPa==""||hora==""||tratamiento==""||costo==""||dia==""){alert("Ingrese todos los datos solicitados");}
+  else {
+  localStorage.getItem("turnos", JSON.stringify(tablaturno));
   tablaturno.push(
     new turno(nomPa, hora, comentario, tratamiento, obra, costo, dia)
-  ),
-  localStorage.setItem("turnos", JSON.stringify(tablaturno)),
-  document.getElementById("nombrePaciente").value = "",
-  document.getElementById("hora").value = "",
-  document.getElementById("comentario").value = "",
-  document.getElementById("tratamiento").value = "",
-  document.getElementById("obra").checked=false,
-  document.getElementById("costo").value = "",
-  document.getElementById("dia").value = "",
+  );
+  localStorage.setItem("turnos", JSON.stringify(tablaturno));
+  document.getElementById("nombrePaciente").value = "";
+  document.getElementById("hora").value = "";
+  document.getElementById("comentario").value = "";
+  document.getElementById("tratamiento").value = "";
+  document.getElementById("obra").checked=false;
+  document.getElementById("costo").value = "";
+  document.getElementById("dia").value = "";
   Swal.fire({
     position: "center",
     icon: "success",
     title: "El turno se ha generado exitosamente!",
     showConfirmButton: false,
     timer: 3000,
-  }));
+  })};
   /* console.log(tablaturno); */
 }
 
