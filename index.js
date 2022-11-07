@@ -1,5 +1,5 @@
 let genero = document.getElementById("generar");
-
+let prueba= document.getElementById("prueba");
 let contenido = document.getElementById("contenido");
 let eliminar = document.getElementById("eliminar");
 let limpiar = document.getElementById("limpiar");
@@ -18,6 +18,48 @@ class turno {
     this.id = id;
   }
 }
+/* Turnos genéricos con FETCH */
+
+
+const MuestraTurno = async () => {
+
+  const response = await fetch("./turnosPrueba.json");
+  const turnos = await response.json();
+  let turnosGenerados = document.getElementById("turnosGenerados");
+  let divprueba = document.createElement("div");
+  divprueba.className="turnoPrueba";
+  turnos.forEach(item => {
+    divprueba.innerHTML += `
+    <div class="turnoPruebas card-body text-bg-secondary">
+    <h6 class="card-subtitle mb-2 ">Horario del turno: ${item.hora}</h6>
+    <p>Nombre Paciente: ${item.nomPa}</p>
+    <p>Día del turno: ${item.dia}</p>
+    <p>Comentario Adicional: ${item.comentario}</p>
+    <p>Tratamiento: ${item.tratamiento}</p>
+    <p>Costo final: ${item.costo}</p>
+    <button class="eliminar btn btn-light text-bg-secondary" onclick="eliminoTurno(this)"> Eliminar Turno </button>
+    </div>
+    `;
+    turnosGenerados.append(divprueba); 
+
+  })
+  setTimeout(() => {
+
+    divprueba.parentNode.removeChild(divprueba);
+  }, 2000);
+
+}
+
+/*  */
+
+
+
+
+prueba && prueba.addEventListener("click",(e) => {
+  e.preventDefault();
+  MuestraTurno();
+
+}, false);
 
 function generar() {
   let nomPa = document.getElementById("nombrePaciente").value;
@@ -53,7 +95,7 @@ function generar() {
 
 
 
-function eliminoTurno(e) {
+function eliminoTurno() {
   let div = document.getElementById("turnosGenerados");
   let turnos = JSON.parse(localStorage.getItem("turnos"));
   Swal.fire({
@@ -69,7 +111,8 @@ function eliminoTurno(e) {
       
       
       /* const borrar = turnos.find( ,id) => id=idx; */
-      /* turnos.splice(0,1); */
+      /* turnos.splice(index,1); */
+      localStorage.setItem("turnos", JSON.stringify(turnos));
 
       div.innerHTML="";
       Swal.fire({
@@ -145,5 +188,6 @@ base.forEach((turno,idx) => {
   turnosGenerados.append(div);       
 } 
 );}
-
   muestro();
+
+

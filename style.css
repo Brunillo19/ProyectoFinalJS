@@ -10,7 +10,7 @@ body{
 }
 
 
-#agregar,#limpiar {
+#agregar,#limpiar,#prueba {
     background-color:#d8ecf7;
     font-weight: bold;
     margin:0 0 25px;
@@ -31,11 +31,26 @@ body{
     flex-wrap: wrap;
     gap: 10px;
     padding: 13px 22px;
-
-
-
 }
 .turnoSingular {
+    
+    
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 13px 22px;
+    border: 2px solid black;
+    box-shadow: 0px 3px 4px #707070;
+    border-radius: 5px; 
+    background-color: #6c757d;
+}
+.turnoPrueba{
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 13px 22px;
+}
+.turnoPruebas{
     
     
     flex-wrap: wrap;
@@ -72,6 +87,7 @@ body{
     gap: 50px;
     margin: auto;
     width: 75%;
+    padding: 10px;
 }    
 
 
