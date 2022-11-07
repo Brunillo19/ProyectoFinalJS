@@ -119,7 +119,10 @@ function eliminoTurno(id) {
       });
       turnos.splice(li,1); 
       localStorage.setItem("turnos", JSON.stringify(turnos)); 
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+
+      },1000);
     }
   });
 } 
